@@ -9,25 +9,42 @@
     nav {position:fixed; top:0; left:0; width:100%; background:#111; display:flex; justify-content:center; gap:40px; padding:18px; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.7); font-size:18px;}
     nav a {color:#e8eaed; text-decoration:none; font-weight:600; transition:0.3s;}
     nav a:hover {color:#56ccf2;}
-    header.hero {height:100vh; background:linear-gradient(135deg, #0f2027, #203a43, #2c5364); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px;}
-    header.hero img {width:200px; height:200px; border-radius:50%; border:6px solid #56ccf2; object-fit:cover; margin-bottom:30px; box-shadow:0 0 25px rgba(86,204,242,0.8);}
-    header.hero h1 {font-size:64px; margin:0; background:linear-gradient(90deg,#56ccf2,#34d399); -webkit-background-clip:text; color:transparent;}
-    .btn {display:inline-block; padding:16px 32px; border-radius:40px; background:#56ccf2; color:#111; text-decoration:none; font-weight:600; transition:0.3s; font-size:20px; margin-top:20px;}
+
+    header.hero {height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; background:linear-gradient(270deg, #0f2027, #203a43, #2c5364); background-size:600% 600%; animation:gradientBG 15s ease infinite; position:relative;}
+    @keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+    header.hero img {width:240px; height:240px; border-radius:50%; border:6px solid #56ccf2; object-fit:cover; margin-bottom:30px; box-shadow:0 0 30px rgba(86,204,242,0.9); opacity:0; transform:translateY(30px); animation:fadeUp 1.5s ease forwards;}
+    header.hero h1 {font-size:76px; margin:0; background:linear-gradient(90deg,#56ccf2,#34d399); -webkit-background-clip:text; color:transparent; opacity:0; transform:translateY(30px); animation:fadeUp 1.5s ease 0.5s forwards;}
+
+    @keyframes fadeUp {to {opacity:1; transform:translateY(0);}}
+
+    .btn {display:inline-block; padding:20px 40px; border-radius:40px; background:#56ccf2; color:#111; text-decoration:none; font-weight:600; transition:0.3s; font-size:22px; margin-top:40px; opacity:0; transform:translateY(30px); animation:fadeUp 1.5s ease 1s forwards;}
     .btn:hover {background:#34d399;}
-    section {padding:100px 30px; max-width:1200px; margin:auto; opacity:0; transform:translateY(40px); transition:all 0.8s ease; font-size:20px;}
+
+    .scroll-down {position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:32px; color:white; animation:bounce 2s infinite;}
+    @keyframes bounce {0%,20%,50%,80%,100%{transform:translate(-50%,0);}40%{transform:translate(-50%,-15px);}60%{transform:translate(-50%,-8px);}}
+
+    section {padding:100px 30px; max-width:1400px; margin:auto; opacity:0; transform:translateY(40px); transition:all 0.8s ease; font-size:20px;}
     section.visible {opacity:1; transform:translateY(0);}
-    h2 {text-align:center; font-size:40px; margin-bottom:50px; color:#56ccf2;}
-    .cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:30px;}
-    .card {background:#111318; border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.6); transition:transform 0.3s; font-size:18px;}
-    .card:hover {transform:translateY(-8px);}
-    .card img {width:100%; height:200px; object-fit:cover;}
-    .card .content {padding:24px;}
-    .card h3 {margin:0 0 14px; font-size:24px; color:#fff;}
-    .card p {margin:0 0 10px; color:#b7b9be; font-size:18px;}
-    .skills-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:30px;}
-    .skills-grid div {background:#1b1f2a; padding:40px; border-radius:20px; text-align:center; font-weight:600; box-shadow:0 0 14px rgba(86,204,242,0.1); transition:0.3s; font-size:18px;}
-    .skills-grid div:hover {box-shadow:0 0 24px rgba(86,204,242,0.9); transform:scale(1.08);}
-    footer {background:#111; color:#b7b9be; text-align:center; padding:40px; margin-top:80px; font-size:18px;}
+    h2 {text-align:center; font-size:44px; margin-bottom:50px; color:#56ccf2;}
+
+    /* Horizontal scroll cards */
+    .scroll-cards {display:flex; gap:30px; overflow-x:auto; padding-bottom:20px; scroll-snap-type:x mandatory;}
+    .scroll-cards::-webkit-scrollbar {height:10px;}
+    .scroll-cards::-webkit-scrollbar-thumb {background:#56ccf2; border-radius:5px;}
+    .card {flex:0 0 550px; height:420px; background:#111318; border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.6); position:relative; scroll-snap-align:start;}
+    .card img {width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;}
+    .card:hover img {transform:scale(1.1);}
+    .overlay {position:absolute; inset:0; background:rgba(0,0,0,0.65); display:flex; flex-direction:column; justify-content:flex-end; padding:30px; opacity:0; transition:opacity 0.4s ease;}
+    .card:hover .overlay {opacity:1;}
+    .overlay h3 {margin:0; font-size:28px; color:#fff;}
+    .overlay p {margin:12px 0 0; color:#b7b9be; font-size:20px;}
+
+    .skills-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:30px;}
+    .skills-grid div {background:#1b1f2a; padding:50px; border-radius:20px; text-align:center; font-weight:600; box-shadow:0 0 14px rgba(86,204,242,0.1); transition:0.3s; font-size:22px;}
+    .skills-grid div:hover {box-shadow:0 0 30px rgba(86,204,242,0.9); transform:scale(1.1);}
+
+    footer {background:#111; color:#b7b9be; text-align:center; padding:50px; margin-top:80px; font-size:18px;}
     footer a {color:#56ccf2; text-decoration:none;}
   </style>
 </head>
@@ -44,33 +61,31 @@
     <img src="picture.jpg" alt="Profile Picture">
     <h1>Christian Kyle S. Hedriana</h1>
     <a href="#experience" class="btn">Explore My Work</a>
+    <div class="scroll-down">⬇️</div>
   </header>
 
   <section id="experience">
     <h2>Experience</h2>
-    <div class="cards">
+    <div class="scroll-cards">
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80" alt="Healthcare Office">
-        <div class="content">
+        <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80" alt="Healthcare Office">
+        <div class="overlay">
           <h3>Cognizant Technology Solutions</h3>
-          <p><em>Senior Process Executive (Healthcare)</em></p>
-          <p>Insurance verification, prior authorization, HIPAA compliance.</p>
+          <p>Senior Process Executive (Healthcare)<br>Insurance verification, prior authorization, HIPAA compliance.</p>
         </div>
       </div>
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=800&q=80" alt="Tech Support Desk">
-        <div class="content">
+        <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1200&q=80" alt="Tech Support Desk">
+        <div class="overlay">
           <h3>Concentrix Philippines</h3>
-          <p><em>L2 Technical Advisor</em></p>
-          <p>Remote troubleshooting, escalations, system maintenance.</p>
+          <p>L2 Technical Advisor<br>Remote troubleshooting, escalations, system maintenance.</p>
         </div>
       </div>
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1560264418-c4445382edbc?auto=format&fit=crop&w=800&q=80" alt="Call Center Team">
-        <div class="content">
+        <img src="https://images.unsplash.com/photo-1560264418-c4445382edbc?auto=format&fit=crop&w=1200&q=80" alt="Call Center Team">
+        <div class="overlay">
           <h3>24/7.ai Philippines</h3>
-          <p><em>Team Leader / SME</em></p>
-          <p>Team coaching, customer experience improvement, data management.</p>
+          <p>Team Leader / SME<br>Team coaching, customer experience, data management.</p>
         </div>
       </div>
     </div>
@@ -78,13 +93,12 @@
 
   <section id="education">
     <h2>Education</h2>
-    <div class="cards">
+    <div class="scroll-cards">
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80" alt="Education">
-        <div class="content">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80" alt="Education">
+        <div class="overlay">
           <h3>Technological University of the Philippines</h3>
-          <p><em>Electronics Engineering Technology</em></p>
-          <p>2015 – 2018</p>
+          <p>Electronics Engineering Technology (2015 – 2018)</p>
         </div>
       </div>
     </div>
